@@ -67,12 +67,13 @@ class _TodoListExpansionState extends State<TodoListExpansion> {
                     child: ListTile(
                       leading: TodoListCheckbox(),
                       title: Text(
-                        tasks[index]["title"]!,
+                        widget.list![index].title,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Row(
                         children: [
-                          Text(tasks[index]["date"]!),
+                          Text(DateFormat('yy-MM-dd')
+                              .format(widget.list![index].dueDate)),
                           Icon(Icons.alarm),
                         ],
                       ),
