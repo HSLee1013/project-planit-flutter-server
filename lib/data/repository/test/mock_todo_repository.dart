@@ -1,7 +1,7 @@
 import 'package:logger/logger.dart';
 import 'package:planit/data/repository/todo_repository.dart';
 
-import '../../../_core/utils/api_dio.dart';
+import '../../../_core/utils/my_http.dart';
 
 class MockTodoRepository implements TodoRepository {
   String jsonString = '''
@@ -98,5 +98,11 @@ class MockTodoRepository implements TodoRepository {
       Logger().e(e);
       return {};
     }
+  }
+
+  @override
+  Future<Map<String, dynamic>> findById(int id) {
+    // TODO: implement findById
+    throw UnimplementedError();
   }
 }

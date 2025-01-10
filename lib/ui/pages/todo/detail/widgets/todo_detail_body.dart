@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:planit/ui/widgets/dialogs/calendar_dialog.dart';
 import 'package:planit/ui/widgets/dialogs/repeat_todo_dialog.dart';
 
@@ -16,120 +17,125 @@ class _TodoDetailBodyState extends State<TodoDetailBody> {
   @override
   Widget build(BuildContext context) {
     final TextEditingController title = TextEditingController();
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: ListView(
-        children: [
-          Row(
+    return Consumer(
+      builder: (context, ref, child) {
+        return Padding(
+          padding: const EdgeInsets.all(20),
+          child: ListView(
             children: [
-              Container(
-                width: 130,
-                height: 35,
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    value: dropdownValue,
-                    style: TextStyle(fontSize: 13),
-                    items: list
-                        .map((String value) => DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            ))
-                        .toList(),
-                    onChanged: (String? value) {
-                      // This is called when the user selects an item.
-                      setState(() {
-                        dropdownValue = value!;
-                      });
-                    },
+              Row(
+                children: [
+                  Container(
+                    width: 130,
+                    height: 35,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 1),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        value: dropdownValue,
+                        style: TextStyle(fontSize: 13),
+                        items: list
+                            .map((String value) => DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                ))
+                            .toList(),
+                        onChanged: (String? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            dropdownValue = value!;
+                          });
+                        },
+                      ),
+                    ),
                   ),
+                ],
+              ),
+              TextField(
+                controller: title,
+                obscureText: false,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "제목없음",
                 ),
               ),
+              Divider(height: 10),
+              Row(
+                children: [
+                  Container(
+                    width: 40,
+                    alignment: Alignment.centerLeft,
+                    child: Icon(CupertinoIcons.calendar),
+                  ),
+                  Text("마감일"),
+                  Spacer(),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => CalendarDialog());
+                    },
+                    child: Text("추가"),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              Divider(height: 10),
+              Row(
+                children: [
+                  Container(
+                    width: 40,
+                    alignment: Alignment.centerLeft,
+                    child: Icon(Icons.repeat),
+                  ),
+                  Text("반복"),
+                  Spacer(),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              RepeatTodoDialog());
+                    },
+                    child: Text("아니요"),
+                  ),
+                ],
+              ),
+              Divider(height: 10),
+              Row(
+                children: [
+                  Container(
+                    width: 40,
+                    alignment: Alignment.centerLeft,
+                    child: Icon(Icons.event_note),
+                  ),
+                  Text("메모"),
+                  Spacer(),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/memo");
+                    },
+                    child: Text("추가"),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(width: 42, height: 10),
+                  Text(
+                    "메모\n추가됨",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ],
+              )
             ],
           ),
-          TextField(
-            controller: title,
-            obscureText: false,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: "제목없음",
-            ),
-          ),
-          Divider(height: 10),
-          Row(
-            children: [
-              Container(
-                width: 40,
-                alignment: Alignment.centerLeft,
-                child: Icon(CupertinoIcons.calendar),
-              ),
-              Text("마감일"),
-              Spacer(),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => CalendarDialog());
-                },
-                child: Text("추가"),
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          Divider(height: 10),
-          Row(
-            children: [
-              Container(
-                width: 40,
-                alignment: Alignment.centerLeft,
-                child: Icon(Icons.repeat),
-              ),
-              Text("반복"),
-              Spacer(),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => RepeatTodoDialog());
-                },
-                child: Text("아니요"),
-              ),
-            ],
-          ),
-          Divider(height: 10),
-          Row(
-            children: [
-              Container(
-                width: 40,
-                alignment: Alignment.centerLeft,
-                child: Icon(Icons.event_note),
-              ),
-              Text("메모"),
-              Spacer(),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/memo");
-                },
-                child: Text("추가"),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              SizedBox(width: 42, height: 10),
-              Text(
-                "메모\n추가됨",
-                style: TextStyle(fontSize: 13),
-              ),
-            ],
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 }

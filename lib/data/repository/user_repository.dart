@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../_core/utils/api_dio.dart';
+import '../../_core/utils/my_http.dart';
 
 class UserRepository {
   const UserRepository();

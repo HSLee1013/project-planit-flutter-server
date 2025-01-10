@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
-import '../../_core/utils/api_dio.dart';
+import '../../_core/utils/my_http.dart';
 import '../../main.dart';
 import '../repository/user_repository.dart';
 

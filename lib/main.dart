@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         "/test": (context) => TestPage(),
         "/dialogs": (context) => DialogPage(),
 
-        "/todo-detail": (context) => TodoDetailPage(),
+        "/detail": (context) => TodoDetailPage(),
         "/memo": (context) => TodoMemoPage(),
         "/calendar": (context) => CalendarPage(),
         "/profile": (context) => ProfilePage(),
