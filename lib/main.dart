@@ -15,7 +15,6 @@ import 'package:planit/ui/pages/temp/dialog_page.dart';
 import 'package:planit/ui/pages/todo/category/todo_category_page.dart';
 import 'package:planit/ui/pages/todo/complete/complete_page.dart';
 import 'package:planit/ui/pages/todo/detail/todo_detail_page.dart';
-import 'package:planit/ui/pages/todo/memo/todo_memo_page.dart';
 
 import 'ui/pages/temp/test_page.dart';
 
@@ -55,7 +54,6 @@ class MyApp extends StatelessWidget {
         "/dialogs": (context) => DialogPage(),
 
         "/detail": (context) => TodoDetailPage(),
-        "/memo": (context) => TodoMemoPage(),
         "/calendar": (context) => CalendarPage(),
         "/profile": (context) => ProfilePage(),
         "/signup": (context) => SignupPage(),
